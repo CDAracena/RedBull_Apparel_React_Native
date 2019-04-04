@@ -9,24 +9,49 @@
 import React, {Component, useState, useEffect} from 'react';
 import {Platform, StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
 import ProductList from './android/app/src/components/ProductList.js';
-import {Container, Title, Header} from 'native-base';
+import FilteredProductList from './android/app/src/components/FilteredProductList';
 
 function App(props) {
 
   const [products, setProducts] = useState([])
   const [storeTitle, setTitle] = useState('Red Bull Apparel Finder')
-  const [searchInput, setSearchInput] = useState('Everything')
+  const [searchInput, setSearchInput] = useState('')
+  const [productListType, setProductListType] = useState('everything')
 
   useEffect( () => {
     const fetchProducts = async () => {
       const promise = await fetch('https://www.redbullshopus.com/products.json')
       const data = await promise.json()
-      setProducts(data.products)   
+      setProducts(data.products)
     }
     fetchProducts()
 
   }, [])
 
+  const renderProductList = () => {
+    if (productListType === 'filtered') {
+      const filteredProducts = products.filter(product => product.title.toLowerCase().includes(searchInput.toLowerCase()) || product.product_type.toLowerCase().includes(searchInput.toLowerCase()) || product.tags.includes(searchInput)) 
+      return (
+        <React.Fragment>
+        {products && <FilteredProductList products={filteredProducts} found={filteredProducts.length}/>}
+        </React.Fragment>
+      )
+    } else {
+      return (
+        <React.Fragment>
+        {products && <ProductList products={products}/>}
+        </React.Fragment>
+      )
+    }
+  }
+
+  updateProductListType = () => {
+    if (searchInput){
+      setProductListType('filtered')
+    } else {
+      setProductListType('everything')
+    }
+  }
 
   return (
     <View>
@@ -36,12 +61,14 @@ function App(props) {
       style={styles.searchInput}
       placeholder="Search for a particular item"
       onChangeText={(text) => setSearchInput(text)}
+      onChange={() => updateProductListType()}
       />
-      <Text style={styles.searchText}>Searching for: {searchInput}</Text>
-     {products && <ProductList products={products}/>}
+      <Text style={styles.searchText}>Searching for: {searchInput ? searchInput : 'Everything'}</Text>
+      {renderProductList()}
     </View>
   )
 }
+
 
 const styles = StyleSheet.create({
   container: {
