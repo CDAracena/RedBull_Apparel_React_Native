@@ -1,5 +1,5 @@
 import React, {Component, useState} from 'react';
-import {Platform, StyleSheet, Text, View, TextInput, FlatList, Image} from 'react-native';
+import {Platform, StyleSheet, Text, View, TextInput, FlatList, Image, ScrollView} from 'react-native';
 import ProductCard from './ProductCard';
 import HTML from 'react-native-render-html';
 import { withNavigation } from 'react-navigation';

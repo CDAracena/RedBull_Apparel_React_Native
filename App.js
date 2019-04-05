@@ -14,7 +14,6 @@ import {createStackNavigator, createAppContainer} from 'react-navigation';
 import ProductPage from './android/app/src/components/ProductPage';
 
 function HomeScreen(props) {
-
   const [products, setProducts] = useState([])
   const [storeTitle, setTitle] = useState('Red Bull Apparel Finder')
   const [searchInput, setSearchInput] = useState('')
@@ -105,8 +104,11 @@ const MainNavigator = createStackNavigator({
   ProductPage: {screen: ProductPage},
 },
   {
-    initialRouteName: "Home"
-  }
+    initialRouteName: "Home",
+    defaultNavigationOptions: {
+      headerTintColor: '#880D1E'
+    }
+  },
 )
 
 const App = createAppContainer(MainNavigator)
