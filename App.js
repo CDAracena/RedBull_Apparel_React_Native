@@ -7,11 +7,13 @@
  */
 
 import React, {Component, useState, useEffect} from 'react';
-import {Platform, StyleSheet, Text, View, TextInput, FlatList} from 'react-native';
+import {Platform, StyleSheet, Text, View, TextInput, FlatList, Button} from 'react-native';
 import ProductList from './android/app/src/components/ProductList.js';
 import FilteredProductList from './android/app/src/components/FilteredProductList';
+import {createStackNavigator, createAppContainer} from 'react-navigation';
+import ProductPage from './android/app/src/components/ProductPage';
 
-function App(props) {
+function HomeScreen(props) {
 
   const [products, setProducts] = useState([])
   const [storeTitle, setTitle] = useState('Red Bull Apparel Finder')
@@ -29,7 +31,8 @@ function App(props) {
   }, [])
 
   const renderProductList = () => {
-    if (productListType === 'filtered') {
+
+     if (productListType === 'filtered') {
       const filteredProducts = products.filter(product => product.title.toLowerCase().includes(searchInput.toLowerCase()) || product.product_type.toLowerCase().includes(searchInput.toLowerCase()) || product.tags.includes(searchInput)) 
       return (
         <React.Fragment>
@@ -96,5 +99,16 @@ const styles = StyleSheet.create({
     paddingLeft: 5
   }
 });
+
+const MainNavigator = createStackNavigator({
+  Home: {screen: HomeScreen},
+  ProductPage: {screen: ProductPage},
+},
+  {
+    initialRouteName: "Home"
+  }
+)
+
+const App = createAppContainer(MainNavigator)
 
 export default App

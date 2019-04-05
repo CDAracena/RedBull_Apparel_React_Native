@@ -1,12 +1,26 @@
 import React, {useState} from 'react';
-import {Platform, StyleSheet, Text, View, TextInput, FlatList, Image} from 'react-native';
+import {Platform, StyleSheet, Text, View, TextInput, FlatList, Image, Button} from 'react-native';
+import {withNavigation} from 'react-navigation';
+
 
 const ProductCard = (props) => {
+    const {navigate} = props.navigation
+    const {item} = props
+
+    const visitProductPage = () => {
+        navigate('ProductPage', {
+           item
+        })
+    }
     return (
         <View style={styles.cardContainer}>
             <Text style={styles.cardTitle}>{props.title}</Text>
             <Image source={{uri: props.imageSrc}} style={{width: 300, height: 300}}/>
             <View style={styles.cardBody}>{props.body}</View>
+            <Button
+            title="See Product"
+            onPress={() => visitProductPage()}
+            color='#880D1E'/>
 
         </View>
     )
@@ -28,4 +42,4 @@ const styles = StyleSheet.create({
     }
 })
 
-export default ProductCard;
+export default withNavigation(ProductCard);
