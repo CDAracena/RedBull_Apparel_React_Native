@@ -4,7 +4,7 @@
   "expo": {
     "name": "Redbull-Fan-app",
     "slug": "redbull-fan-app",
-    "sdkVersion": "1.0",
+    "sdkVersion": "28.0.0",
     "privacy": "public",
     "platforms": ["android"]
   }
