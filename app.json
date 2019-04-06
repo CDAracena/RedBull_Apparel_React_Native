@@ -1,4 +1,10 @@
 {
   "name": "my_react_native_ap",
-  "displayName": "my_react_native_ap"
+  "displayName": "my_react_native_ap",
+  "expo": {
+    "name": "Redbull-Fan-app",
+    "slug": "redbull-fan-app",
+    "sdkVersion": "UNVERSIONED",
+    "privacy": "public"
+  }
 }
