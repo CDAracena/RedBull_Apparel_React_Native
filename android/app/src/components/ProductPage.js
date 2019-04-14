@@ -31,8 +31,8 @@ export default function ProductPage(props) {
     <View style={styles.variantWrapper}>
         {item.variants.length > 1 && 
         item.variants.map((variant, idx) =>
-        <View key={variant.id}> 
-        <Text >{variant.title}</Text>
+        <View key={variant.id} style={styles.variantContainer}> 
+        <Text>{variant.title}</Text>
         <Image source={{uri: variant.featured_image.src}} 
         style={{width: 300, height: 300}}/>
         <View style={styles.variantButtonContainer}>
@@ -71,9 +71,6 @@ const styles = StyleSheet.create({
     },
     variantWrapper: {
         alignItems:'center',
-        overflow: 'visible',
-        elevation: 2,
-        backgroundColor: 'white'
     },
     mainImg: {
         width: 300,
@@ -82,5 +79,11 @@ const styles = StyleSheet.create({
     variantButtonContainer: {
         alignItems: 'center',
         marginBottom: 5,
+    },
+    variantContainer: {
+        elevation: 2, 
+        backgroundColor: 'white', 
+        width: '90%', 
+        alignItems: 'center',
     }
 })
