@@ -23,7 +23,7 @@ function HomeScreen(props) {
     const fetchProducts = async () => {
       const promise = await fetch('https://www.redbullshopus.com/products.json')
       const data = await promise.json()
-  
+      setProducts(data.products)
     }
     fetchProducts()
 
@@ -66,7 +66,13 @@ function HomeScreen(props) {
       onChange={() => updateProductListType()}
       />
       <Text style={styles.searchText}>Searching for: {searchInput ? searchInput : 'Everything'}</Text>
-      {products ? renderProductList() : <View><ActivityIndicator size={5}/> </View>}
+      {products ? renderProductList()
+      :  
+      <View>
+      <ActivityIndicator color="#880D1E" size="large" />
+    </View>
+    }
+
     </View>
   )
 }
