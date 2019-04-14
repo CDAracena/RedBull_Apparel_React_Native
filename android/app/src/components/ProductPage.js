@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Platform, StyleSheet, Text, View, Image, ScrollView, TouchableHighlight} from 'react-native';
+import {Platform, StyleSheet, Text, View, Image, ScrollView, TouchableHighlight, Button} from 'react-native';
 import HTML from 'react-native-render-html';
 
 export default function ProductPage(props) {
@@ -15,20 +15,31 @@ export default function ProductPage(props) {
     onPress={setImgPosition}
     underlayColor='lightgray'
     >
-    <Image source={{uri: item.images[itemPosition].src}} style={{width: 300, height: 300}}/>
+    <Image source={{uri: item.images[itemPosition].src}} style={styles.mainImg}/>
     </TouchableHighlight>
     <View style={styles.cardBody}>
     <HTML html={item.body_html}/>
+    <View style={{ alignItems: 'center', justifyContent: 'center', marginBottom: 5}}>
+    <Button 
+    title="Add To Cart"
+    color="#880D1E"
+    />
+    </View>
     </View>
 </View>
 <Text style={styles.variantHeader}> {item.variants ? 'Different Variants': ''} </Text>
     <View style={styles.variantWrapper}>
         {item.variants.length > 1 && 
         item.variants.map((variant, idx) =>
-        <View key={variant.id}> 
-        <Text >{variant.title}</Text>
+        <View key={variant.id} style={styles.variantContainer}> 
+        <Text>{variant.title}</Text>
         <Image source={{uri: variant.featured_image.src}} 
         style={{width: 300, height: 300}}/>
+        <View style={styles.variantButtonContainer}>
+        <Button 
+        title="Add To Cart"
+        color="#880D1E"/>
+        </View>
          </View>
         )}
     </View>
@@ -59,6 +70,20 @@ const styles = StyleSheet.create({
         
     },
     variantWrapper: {
-        alignItems:'center'
+        alignItems:'center',
+    },
+    mainImg: {
+        width: 300,
+        height: 400,
+    },
+    variantButtonContainer: {
+        alignItems: 'center',
+        marginBottom: 5,
+    },
+    variantContainer: {
+        elevation: 2, 
+        backgroundColor: 'white', 
+        width: '90%', 
+        alignItems: 'center',
     }
 })

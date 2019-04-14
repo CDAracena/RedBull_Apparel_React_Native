@@ -7,7 +7,7 @@
  */
 
 import React, {Component, useState, useEffect} from 'react';
-import {Platform, StyleSheet, Text, View, TextInput, FlatList, Button} from 'react-native';
+import {Platform, StyleSheet, Text, View, TextInput, FlatList, Button, ActivityIndicator} from 'react-native';
 import ProductList from './android/app/src/components/ProductList.js';
 import FilteredProductList from './android/app/src/components/FilteredProductList';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
@@ -23,7 +23,7 @@ function HomeScreen(props) {
     const fetchProducts = async () => {
       const promise = await fetch('https://www.redbullshopus.com/products.json')
       const data = await promise.json()
-      setProducts(data.products)
+  
     }
     fetchProducts()
 
@@ -66,7 +66,7 @@ function HomeScreen(props) {
       onChange={() => updateProductListType()}
       />
       <Text style={styles.searchText}>Searching for: {searchInput ? searchInput : 'Everything'}</Text>
-      {renderProductList()}
+      {products ? renderProductList() : <View><ActivityIndicator size={5}/> </View>}
     </View>
   )
 }
