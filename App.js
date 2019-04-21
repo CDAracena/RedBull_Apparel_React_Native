@@ -12,7 +12,7 @@ import ProductList from './android/app/src/components/ProductList.js';
 import FilteredProductList from './android/app/src/components/FilteredProductList';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import ProductPage from './android/app/src/components/ProductPage';
-import Cart from 'android/app/src/components/Cart.js';
+import Cart from './android/app/src/components/Cart.js';
 
 function HomeScreen(props) {
   const [products, setProducts] = useState([])
