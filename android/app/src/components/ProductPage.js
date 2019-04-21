@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import {Platform, StyleSheet, Text, View, Image, ScrollView, TouchableHighlight, Button} from 'react-native';
 import HTML from 'react-native-render-html';
+import {connect} from 'react-redux';
+import {addToCart} from '../../../../actions/shoppingCart.js'
 
-export default function ProductPage(props) {
+function ProductPage(props) {
     const {item} = props.navigation.state.params
     const [itemPosition, setProductPosition] = useState(0)
     const setImgPosition = () => itemPosition === 0 ? setProductPosition(1) : setProductPosition(0)
@@ -23,6 +25,7 @@ export default function ProductPage(props) {
     <Button 
     title="Add To Cart"
     color="#880D1E"
+    onPress={() => props.addItem(item)}
     />
     </View>
     </View>
@@ -38,7 +41,8 @@ export default function ProductPage(props) {
         <View style={styles.variantButtonContainer}>
         <Button 
         title="Add To Cart"
-        color="#880D1E"/>
+        color="#880D1E"
+        onPress={() => props.addItem(item)}/>
         </View>
          </View>
         )}
@@ -87,3 +91,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     }
 })
+
+const mapStateToProps = ({shoppingCart}) => {
+    return {
+        shoppingCart
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addItem: (item) => dispatch(addToCart(item))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProductPage)
