@@ -13,6 +13,7 @@ import FilteredProductList from './android/app/src/components/FilteredProductLis
 import {createStackNavigator, createAppContainer} from 'react-navigation';
 import ProductPage from './android/app/src/components/ProductPage';
 import Cart from './android/app/src/components/Cart.js';
+import CartIcon from './android/app/src/components/CartIcon.js'
 
 function HomeScreen(props) {
   const [products, setProducts] = useState([])
@@ -107,14 +108,18 @@ const styles = StyleSheet.create({
 });
 
 const MainNavigator = createStackNavigator({
-  Home: {screen: HomeScreen},
+  Home: {screen: HomeScreen,
+  navigationOptions: () => ({
+    title: 'Red Bull',
+  })},
   ProductPage: {screen: ProductPage},
   Cart: {screen: Cart}
 },
   {
     initialRouteName: "Home",
     defaultNavigationOptions: {
-      headerTintColor: '#880D1E'
+      headerTintColor: '#880D1E',
+      headerRight: <CartIcon/>
     }
   },
 )
