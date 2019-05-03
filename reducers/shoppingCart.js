@@ -4,13 +4,16 @@ import {
 
 
 
+
 const initialState = {
     Cart: []
 }
 
 const shoppingCart = (state = initialState, action) => {
+    console.log(state)
     switch(action.type){
         case 'ADD_TO_CART': 
+        console.log(action.item)
         return Object.assign({}, state, {
             Cart: [...state.Cart, action.item]
         })
