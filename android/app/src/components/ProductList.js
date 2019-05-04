@@ -15,8 +15,8 @@ function ProductList(props){
             renderItem={({item}) => 
             <ProductCard title={item.title}
             item={item} 
-            body={<HTML html={item.body_html}/>}  
-            imageSrc={item.images[0].src} 
+            body={<HTML html={item.body_html ? item.body_html : 'No Data Available Yet'}/>}  
+            imageSrc={ item.images[0] ? item.images[0].src : ''} 
             />}
             />
         </View>

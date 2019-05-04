@@ -16,7 +16,7 @@ function ProductList(props){
             <ProductCard title={item.title}
             item={item} 
             body={<HTML html={item.body_html}/>}  
-            imageSrc={item.images[0].src}
+            imageSrc={item.images[0] ? item.images[0].src : ''}
             />} 
             />
         </View>

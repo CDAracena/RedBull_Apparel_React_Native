@@ -8,7 +8,14 @@ function ProductPage(props) {
     const {item} = props.navigation.state.params
     const [itemPosition, setProductPosition] = useState(0)
     const setImgPosition = () => itemPosition === 0 ? setProductPosition(1) : setProductPosition(0)
-
+    const itemData  = {
+        id: item.id,
+        title: item.title,
+        images: item.images,
+        product_type: item.product_type,
+        price: item.variants[0].price ? item.variants[0].price : '0', 
+        itemCount: 1
+    }
     return (
     <ScrollView>
     <View style={styles.cardContainer}>
@@ -20,12 +27,12 @@ function ProductPage(props) {
     <Image source={{uri: item.images[itemPosition].src}} style={styles.mainImg}/>
     </TouchableHighlight>
     <View style={styles.cardBody}>
-    <HTML html={item.body_html}/>
+    <HTML html={item.body_html ? item.body_html : 'No Data Available Yet'}/>
     <View style={{ alignItems: 'center', justifyContent: 'center', marginBottom: 5}}>
     <Button 
     title="Add To Cart"
     color="#880D1E"
-    onPress={() => props.addItem(item)}
+    onPress={() => props.addItem(itemData)}
     />
     </View>
     </View>
