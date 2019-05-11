@@ -16,6 +16,18 @@ function ProductPage(props) {
         price: item.variants[0].price ? item.variants[0].price : '0', 
         itemCount: 1
     }
+
+    const addItemToCart = (item) => {
+        const {Cart} = props.shoppingCart 
+
+        const duplicate = Cart.find(i => i.id === item.id)
+
+        if (duplicate) {
+
+        } else {
+            props.addItem(item)
+        }
+    }
     return (
     <ScrollView>
     <View style={styles.cardContainer}>
