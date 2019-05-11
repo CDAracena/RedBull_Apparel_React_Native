@@ -1,14 +1,27 @@
 import React, {useState, useEffect} from 'react';
 import {Platform, StyleSheet, Text, View, FlatList, Image, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
-import {removeFromCart} from '../../../../actions/shoppingCart.js'
+import {removeFromCart, increaseItemCount, decreaseItemCount} from '../../../../actions/shoppingCart.js'
 import {Icon} from 'react-native-elements';
 
 
+
 const Cart = (props) => {
-    const [cartTotal, setCartTotal] = useState('')
     const {Cart} = props.shoppingCart
-    const {deleteItem} = props
+    const {deleteItem, increaseItemCount, decreaseItemCount} = props
+
+    const increaseCount = (itemId) => {
+
+        increaseItemCount(itemId)
+        }
+
+    const decreaseCount = (item) => {
+        if (item.count < 1) {
+            deleteItem(action.id)
+        }
+        decreaseItemCount(item.id)
+    }
+    
     return (
         <View style={styles.mainContainer}>
            <FlatList
@@ -25,11 +38,11 @@ const Cart = (props) => {
            </View>
            <View style={styles.counterContainer}>
            <View style={{marginRight: 10}}>
-           <Icon name="plus-square" type="font-awesome" color="#880D1E" component={TouchableOpacity} />
+           <Icon name="plus-square" type="font-awesome" color="#880D1E" component={TouchableOpacity}  onPress={() => increaseCount(item.id)}/>
            </View>
            <Text style={{fontWeight: '600'}}>{item.itemCount}</Text>
            <View style={{marginLeft: 10}}>
-           <Icon name="minus-square" type="font-awesome" color="#880D1E" component={TouchableOpacity} />
+           <Icon name="minus-square" type="font-awesome" color="#880D1E" component={TouchableOpacity} onPress={() => decreaseCount(item)}/>
            </View>
            </View>
            </View>}/>
@@ -45,7 +58,9 @@ const mapStateToProps = ({shoppingCart})=> {
 
 const mapDispatchToProps = dispatch => {
     return {
-        deleteItem: (itemId) => dispatch(removeFromCart(itemId))
+        deleteItem: (itemId) => dispatch(removeFromCart(itemId)),
+        increaseItemCount: (id) => dispatch(increaseItemCount(id)),
+        decreaseItemCount: (id) => dispatch(decreaseItemCount(id))
     }
 }
 
