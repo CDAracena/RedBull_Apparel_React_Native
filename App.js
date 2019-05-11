@@ -113,7 +113,9 @@ const MainNavigator = createStackNavigator({
     title: 'Red Bull',
   })},
   ProductPage: {screen: ProductPage},
-  Cart: {screen: Cart}
+  Cart: {screen: Cart, navigationOptions: () => ({
+    title: "Your Cart"
+  })}
 },
   {
     initialRouteName: "Home",
