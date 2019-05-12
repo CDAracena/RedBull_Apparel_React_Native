@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Platform, StyleSheet, Text, View, Image, ScrollView, TouchableHighlight, Button} from 'react-native';
 import HTML from 'react-native-render-html';
 import {connect} from 'react-redux';
-import {addToCart} from '../../../../actions/shoppingCart.js'
+import {addToCart, increaseItemCount} from '../../../../actions/shoppingCart.js'
 
 function ProductPage(props) {
     const {item} = props.navigation.state.params
@@ -23,7 +23,7 @@ function ProductPage(props) {
         const duplicate = Cart.find(i => i.id === item.id)
 
         if (duplicate) {
-
+            props.increaseItemCount(item.id)
         } else {
             props.addItem(item)
         }
@@ -44,7 +44,7 @@ function ProductPage(props) {
     <Button 
     title="Add To Cart"
     color="#880D1E"
-    onPress={() => props.addItem(itemData)}
+    onPress={() => addItemToCart(itemData)}
     />
     </View>
     </View>
@@ -119,7 +119,8 @@ const mapStateToProps = ({shoppingCart}) => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addItem: (item) => dispatch(addToCart(item))
+        addItem: (item) => dispatch(addToCart(item)),
+        increaseItemCount: (id) => dispatch(increaseItemCount(id))
     }
 }
 

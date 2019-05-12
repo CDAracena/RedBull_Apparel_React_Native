@@ -11,15 +11,17 @@ const Cart = (props) => {
     const {deleteItem, increaseItemCount, decreaseItemCount} = props
 
     const increaseCount = (itemId) => {
-
         increaseItemCount(itemId)
-        }
+    }
 
     const decreaseCount = (item) => {
-        if (item.count < 1) {
-            deleteItem(action.id)
+        if (item.itemCount < 2) {
+            deleteItem(item.id)
+            return;
         }
+
         decreaseItemCount(item.id)
+        
     }
     
     return (
