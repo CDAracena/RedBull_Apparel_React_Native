@@ -13,7 +13,7 @@ function ProductPage(props) {
         title: item.title,
         images: item.images,
         product_type: item.product_type,
-        price: item.variants[0].price ? item.variants[0].price : 0,
+        price: item.variants[0].price ? Number(item.variants[0].price) : 0,
         itemCount: 1
     }
 
