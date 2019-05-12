@@ -5,19 +5,13 @@ import {removeFromCart, increaseItemCount, decreaseItemCount} from '../../../../
 import {Icon} from 'react-native-elements';
 
 const Cart = (props) => {
-  const [totalCost, setTotalCost] = useState(0)
 
-  useEffect(() => {
-    getTotalCost()
-
-  }, [totalCost])
 
     const {Cart} = props.shoppingCart
     const {deleteItem, increaseItemCount, decreaseItemCount} = props
 
     const increaseCount = (itemId) => {
         increaseItemCount(itemId)
-        getTotalCost()
     }
 
     const decreaseCount = (item) => {
@@ -25,19 +19,8 @@ const Cart = (props) => {
             deleteItem(item.id)
             return;
         }
-
         decreaseItemCount(item.id)
-        getTotalCost()
     }
-
- const getTotalCost = () => {
-      const {Cart} = props.shoppingCart
-      if (Cart.length >= 1) {
-      const sum = Cart.map(item => item.price * item.itemCount).reduce((acc, curr) => acc + curr)
-      setTotalCost(sum)
-    }
-  }
-
 
     return (
         <View style={styles.mainContainer}>
@@ -64,8 +47,8 @@ const Cart = (props) => {
            </View>
            </View>}/>
            {
-             Cart.length > 1 && <View style={styles.totalContainer}>
-             <Text style={styles.totalText}>total: ${totalCost} </Text>
+             Cart.length >= 1 && <View style={styles.totalContainer}>
+             <Text style={styles.totalText}>total: ${Cart.map(item => item.price * item.itemCount).reduce((acc, curr) => acc + curr)} </Text>
              </View>
            }
         </View>
