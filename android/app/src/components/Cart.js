@@ -4,9 +4,8 @@ import {connect} from 'react-redux';
 import {removeFromCart, increaseItemCount, decreaseItemCount} from '../../../../actions/shoppingCart.js'
 import {Icon} from 'react-native-elements';
 
-
-
 const Cart = (props) => {
+
     const {Cart} = props.shoppingCart
     const {deleteItem, increaseItemCount, decreaseItemCount} = props
 
@@ -21,9 +20,13 @@ const Cart = (props) => {
         }
 
         decreaseItemCount(item.id)
-        
+
     }
-    
+
+    //Not updating upon changes, correct total though,
+    //consider using redux store?
+    const totalPrice = () => Cart.map(item => Number(item.price)).reduce((acc, curr) => Number(acc + curr))
+
     return (
         <View style={styles.mainContainer}>
            <FlatList
@@ -48,6 +51,11 @@ const Cart = (props) => {
            </View>
            </View>
            </View>}/>
+           {
+             Cart.length > 1 && <View style={styles.totalContainer}>
+             <Text style={styles.totalText}>total: ${totalPrice()} </Text>
+             </View>
+           }
         </View>
     )
 }
@@ -87,7 +95,13 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         flex: 1
     },
- 
+    totalText: {
+      textTransform: 'uppercase',
+    },
+    totalContainer: {
+      marginTop: 15
+    }
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps) (Cart);

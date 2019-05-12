@@ -12,12 +12,12 @@ function ProductList(props){
             <FlatList
             data={props.products}
             keyExtractor={(item) => item.id.toString()}
-            renderItem={({item}) => 
+            renderItem={({item}) =>
             <ProductCard title={item.title}
-            item={item} 
-            body={<HTML html={item.body_html}/>}  
+            item={item}
+            body={<HTML html={item.body_html}/>}
             imageSrc={item.images[0] ? item.images[0].src : ''}
-            />} 
+            />}
             />
         </View>
     )

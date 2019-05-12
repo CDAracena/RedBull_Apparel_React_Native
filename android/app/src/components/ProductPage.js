@@ -13,12 +13,12 @@ function ProductPage(props) {
         title: item.title,
         images: item.images,
         product_type: item.product_type,
-        price: item.variants[0].price ? item.variants[0].price : 0, 
+        price: item.variants[0].price ? item.variants[0].price : 0,
         itemCount: 1
     }
 
     const addItemToCart = (item) => {
-        const {Cart} = props.shoppingCart 
+        const {Cart} = props.shoppingCart
 
         const duplicate = Cart.find(i => i.id === item.id)
 
@@ -32,7 +32,7 @@ function ProductPage(props) {
     <ScrollView>
     <View style={styles.cardContainer}>
     <Text style={styles.cardTitle}>{item.title}</Text>
-    <TouchableHighlight 
+    <TouchableHighlight
     onPress={setImgPosition}
     underlayColor='lightgray'
     >
@@ -41,7 +41,7 @@ function ProductPage(props) {
     <View style={styles.cardBody}>
     <HTML html={item.body_html ? item.body_html : 'No Data Available Yet'}/>
     <View style={{ alignItems: 'center', justifyContent: 'center', marginBottom: 5}}>
-    <Button 
+    <Button
     title="Add To Cart"
     color="#880D1E"
     onPress={() => addItemToCart(itemData)}
@@ -51,17 +51,17 @@ function ProductPage(props) {
 </View>
 <Text style={styles.variantHeader}> {item.variants ? 'Different Variants': ''} </Text>
     <View style={styles.variantWrapper}>
-        {item.variants.length > 1 && 
+        {item.variants.length > 1 &&
         item.variants.map((variant, idx) =>
-        <View key={variant.id} style={styles.variantContainer}> 
+        <View key={variant.id} style={styles.variantContainer}>
         <Text>{variant.title}</Text>
-        <Image source={{uri: variant.featured_image.src}} 
+        <Image source={{uri: variant.featured_image.src}}
         style={{width: 300, height: 300}}/>
         <View style={styles.variantButtonContainer}>
-        <Button 
+        <Button
         title="Add To Cart"
         color="#880D1E"
-        onPress={() => props.addItem(item)}/>
+        onPress={() => props.addItemToCart(itemData)}/>
         </View>
          </View>
         )}
@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     cardContainer: {
         justifyContent: 'center',
         alignItems: 'center'
-    }, 
+    },
     cardTitle: {
         color: '#880D1E',
         textAlign: 'center',
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
         fontSize: 15,
         fontWeight: 'bold',
         paddingBottom: 10
-        
+
     },
     variantWrapper: {
         alignItems:'center',
@@ -104,9 +104,9 @@ const styles = StyleSheet.create({
         marginBottom: 5,
     },
     variantContainer: {
-        elevation: 2, 
-        backgroundColor: 'white', 
-        width: '90%', 
+        elevation: 2,
+        backgroundColor: 'white',
+        width: '90%',
         alignItems: 'center',
     }
 })

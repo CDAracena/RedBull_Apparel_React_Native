@@ -7,7 +7,7 @@
  */
 
 import React, {Component, useState, useEffect} from 'react';
-import {Platform, StyleSheet, Text, View, TextInput, FlatList, Button, ActivityIndicator} from 'react-native';
+import {Platform, StyleSheet, Text, View, TextInput, FlatList, Button, ActivityIndicator, ScrollView} from 'react-native';
 import ProductList from './android/app/src/components/ProductList.js';
 import FilteredProductList from './android/app/src/components/FilteredProductList';
 import {createStackNavigator, createAppContainer} from 'react-navigation';
@@ -34,7 +34,7 @@ function HomeScreen(props) {
   const renderProductList = () => {
 
      if (productListType === 'filtered') {
-      const filteredProducts = products.filter(product => product.title.toLowerCase().includes(searchInput.toLowerCase()) || product.product_type.toLowerCase().includes(searchInput.toLowerCase()) || product.tags.includes(searchInput)) 
+      const filteredProducts = products.filter(product => product.title.toLowerCase().includes(searchInput.toLowerCase()) || product.product_type.toLowerCase().includes(searchInput.toLowerCase()) || product.tags.includes(searchInput))
       return (
         <React.Fragment>
         {products && <FilteredProductList products={filteredProducts} found={filteredProducts.length}/>}
@@ -58,7 +58,7 @@ function HomeScreen(props) {
   }
 
   return (
-    <View>
+    <View style={styles.mainContainer}>
       <Text style={styles.welcome}> {storeTitle} </Text>
       <Text style={styles.subheader}>Search The Red Bull Inventory!</Text>
       <TextInput
@@ -68,8 +68,9 @@ function HomeScreen(props) {
       onChange={() => updateProductListType()}
       />
       <Text style={styles.searchText}>Searching for: {searchInput ? searchInput : 'Everything'}</Text>
+
       {products ? renderProductList()
-      :  
+      :
       <View>
       <ActivityIndicator color="#880D1E" size="large" />
     </View>
@@ -83,6 +84,7 @@ function HomeScreen(props) {
 const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
+    flex: 1
   },
   welcome: {
     fontSize: 20,
@@ -94,16 +96,18 @@ const styles = StyleSheet.create({
     fontSize: 15,
     textAlign: 'center',
     color: '#880D1E',
+    fontWeight: '600'
   },
   searchInput: {
     borderBottomWidth: 1,
     borderBottomColor: '#880D1E',
     borderStyle: 'solid',
-    marginLeft: 5
   },
   searchText: {
     paddingTop: 10,
-    paddingLeft: 5
+  },
+  mainContainer: {
+    marginHorizontal: 10
   }
 });
 
@@ -115,13 +119,17 @@ const MainNavigator = createStackNavigator({
   ProductPage: {screen: ProductPage},
   Cart: {screen: Cart, navigationOptions: () => ({
     title: "Your Cart"
+
   })}
 },
   {
     initialRouteName: "Home",
     defaultNavigationOptions: {
       headerTintColor: '#880D1E',
-      headerRight: <CartIcon/>
+      headerRight: <CartIcon/>,
+      headerRightContainerStyle: {
+        marginRight: 10
+      }
     }
   },
 )
