@@ -4,24 +4,24 @@ import {connect} from 'react-redux';
 import {removeFromCart, increaseItemCount, decreaseItemCount} from '../../../../actions/shoppingCart.js'
 import {Icon} from 'react-native-elements';
 
-
-
 const Cart = (props) => {
+
+
     const {Cart} = props.shoppingCart
     const {deleteItem, increaseItemCount, decreaseItemCount} = props
 
     const increaseCount = (itemId) => {
-
         increaseItemCount(itemId)
-        }
+    }
 
     const decreaseCount = (item) => {
-        if (item.count < 1) {
-            deleteItem(action.id)
+        if (item.itemCount < 2) {
+            deleteItem(item.id)
+            return;
         }
         decreaseItemCount(item.id)
     }
-    
+
     return (
         <View style={styles.mainContainer}>
            <FlatList
@@ -31,8 +31,8 @@ const Cart = (props) => {
            <View style={{flexDirection: 'row', alignItems: 'center'}}>
            <Image source={{ uri: item.images[0].src}} style={{width: 66, height: 54}}/>
            <Text style={styles.itemTitle}>{item.title}</Text>
-           <Text>${Number(item.price) * Number(item.itemCount) }</Text>
-           <View style={{marginLeft: 5}}>
+           <Text>${item.price * item.itemCount }</Text>
+           <View style={{marginLeft: 10}}>
                <Icon name="trash" type="font-awesome" color="#880D1E" component={TouchableOpacity} onPress={() => deleteItem(item.id)}/>
                </View>
            </View>
@@ -46,6 +46,11 @@ const Cart = (props) => {
            </View>
            </View>
            </View>}/>
+           {
+             Cart.length >= 1 && <View style={styles.totalContainer}>
+             <Text style={styles.totalText}>total: ${Cart.map(item => item.price * item.itemCount).reduce((acc, curr) => acc + curr)} </Text>
+             </View>
+           }
         </View>
     )
 }
@@ -71,21 +76,28 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         borderBottomWidth: 1,
         borderColor: '#880D1E',
-       paddingBottom: 10
+       paddingVertical: 10
     },
     mainContainer: {
         marginTop: 10,
         marginHorizontal: 15
     },
     itemTitle: {
-        width: 100
+        width: 100,
+        marginLeft: 10
     },
     counterContainer: {
         flexDirection: 'row',
         justifyContent: 'flex-end',
         flex: 1
     },
- 
+    totalText: {
+      textTransform: 'uppercase',
+    },
+    totalContainer: {
+      marginTop: 15
+    }
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps) (Cart);
