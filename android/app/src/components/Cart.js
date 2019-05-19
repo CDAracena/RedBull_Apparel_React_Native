@@ -3,9 +3,10 @@ import {Platform, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, But
 import {connect} from 'react-redux';
 import {removeFromCart, increaseItemCount, decreaseItemCount} from '../../../../actions/shoppingCart.js'
 import {Icon} from 'react-native-elements';
+import CardPayment from './CardPayment.js'
 
 const Cart = (props) => {
-
+    const [openCardPayment, setCardPayment] = useState(false)
 
     const {Cart} = props.shoppingCart
     const {deleteItem, increaseItemCount, decreaseItemCount} = props
@@ -53,9 +54,10 @@ const Cart = (props) => {
              </View>
            }
           {Cart.length >= 1 && <View style={{marginTop: 20}}>
-                 <Button title="Checkout" color="#880D1E" onPress={() => navigate('NewCardPage')}/>
+                 <Button title="Checkout" color="#880D1E" onPress={() => setCardPayment(!openCardPayment)}/>
                  </View>
                 }
+                {openCardPayment && <CardPayment/>}
         </View>
     )
 }
