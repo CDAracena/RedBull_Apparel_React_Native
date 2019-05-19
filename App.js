@@ -14,6 +14,7 @@ import {createStackNavigator, createAppContainer} from 'react-navigation';
 import ProductPage from './android/app/src/components/ProductPage';
 import Cart from './android/app/src/components/Cart.js';
 import CartIcon from './android/app/src/components/CartIcon.js'
+import NewCardPage from './android/app/src/components/NewCardPage'
 
 function HomeScreen(props) {
   const [products, setProducts] = useState([])
@@ -120,7 +121,8 @@ const MainNavigator = createStackNavigator({
   Cart: {screen: Cart, navigationOptions: () => ({
     title: "Your Cart"
 
-  })}
+  })},
+  NewCardPage: {screen: NewCardPage}
 },
   {
     initialRouteName: "Home",
