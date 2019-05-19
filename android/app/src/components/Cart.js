@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Platform, StyleSheet, Text, View, FlatList, Image, TouchableOpacity} from 'react-native';
+import {Platform, StyleSheet, Text, View, FlatList, Image, TouchableOpacity, Button} from 'react-native';
 import {connect} from 'react-redux';
 import {removeFromCart, increaseItemCount, decreaseItemCount} from '../../../../actions/shoppingCart.js'
 import {Icon} from 'react-native-elements';
@@ -51,6 +51,10 @@ const Cart = (props) => {
              <Text style={styles.totalText}>total: ${Cart.map(item => item.price * item.itemCount).reduce((acc, curr) => acc + curr)} </Text>
              </View>
            }
+          {Cart.length >= 1 && <View style={{marginTop: 20}}>
+                 <Button title="Checkout" color="#880D1E"/>
+                 </View>
+                }
         </View>
     )
 }
@@ -93,6 +97,9 @@ const styles = StyleSheet.create({
     },
     totalText: {
       textTransform: 'uppercase',
+      color: '#40C41F',
+      fontWeight: '700',
+      textAlign: 'right'
     },
     totalContainer: {
       marginTop: 15
