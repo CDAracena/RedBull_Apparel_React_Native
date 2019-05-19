@@ -9,6 +9,7 @@ const Cart = (props) => {
 
     const {Cart} = props.shoppingCart
     const {deleteItem, increaseItemCount, decreaseItemCount} = props
+    const {navigate} = props.navigation
 
     const increaseCount = (itemId) => {
         increaseItemCount(itemId)
@@ -52,7 +53,7 @@ const Cart = (props) => {
              </View>
            }
           {Cart.length >= 1 && <View style={{marginTop: 20}}>
-                 <Button title="Checkout" color="#880D1E"/>
+                 <Button title="Checkout" color="#880D1E" onPress={() => navigate('NewCardPage')}/>
                  </View>
                 }
         </View>
